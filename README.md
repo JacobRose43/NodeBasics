@@ -1,2 +1,3 @@
 # NodeBasics
-Basic node
+
+Node, Express, Templating
