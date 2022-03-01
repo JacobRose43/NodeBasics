@@ -2,21 +2,17 @@ const express = require("express");
 const app = express();
 const port = 8080;
 const path = require("path");
-const redditData = require("./data.json");
+
+app.use("/css", express.static(path.join(__dirname, "node_modules/bootstrap/dist/css")));
+app.use("/js", express.static(path.join(__dirname, "node_modules/bootstrap/dist/js")));
+app.use("/js", express.static(path.join(__dirname, "node_modules/jquery/dist")));
 
 app.use(express.static(path.join(__dirname, "public")));
 
 app.set("view engine", "ejs"); // <<< express behind the scene, require automatic ejs
-app.set("views", path.join(__dirname, "/views")); // path.join = absolute path works!
 
 app.get("/", (req, res) => {
-	res.render("home.ejs"); // default /views/<file>
-});
-
-app.get("/r/:subreddit", (req, res) => {
-	const { subreddit } = req.params;
-	const data = redditData[subreddit];
-	res.render("subreddit", { ...data });
+	res.render("index.ejs"); // default /views/<file>
 });
 
 app.listen(port, () => {
