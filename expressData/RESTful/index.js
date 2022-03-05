@@ -3,11 +3,11 @@ const app = express();
 const path = require("path");
 const port = 8080;
 const { v4: uId } = require("uuid");
-const methodOverride = require('method-override');
+const methodOverride = require("method-override");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(methodOverride('_method'))
+app.use(methodOverride("_method"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
@@ -42,7 +42,6 @@ app.get("/comments/new", (req, res) => {
 	res.render("comments/new");
 });
 
-
 app.post("/comments", (req, res) => {
 	const { username, comment } = req.body;
 	comments.push({ username, comment, id: uId() });
@@ -55,10 +54,10 @@ app.get("/comments/:id", (req, res) => {
 	res.render("comments/show", { comment });
 });
 
-app.get("/comments/:id/edit", (req, res) =>{
-	const {id} = req.params;
+app.get("/comments/:id/edit", (req, res) => {
+	const { id } = req.params;
 	const comment = comments.find((c) => c.id === id);
-	res.render('comments/edit', {comment});
+	res.render("comments/edit", { comment });
 });
 
 app.patch("/comments/:id", (req, res) => {
@@ -66,10 +65,8 @@ app.patch("/comments/:id", (req, res) => {
 	const newCommentText = req.body.comment;
 	const foundComment = comments.find((c) => c.id === id);
 	foundComment.comment = newCommentText;
-	res.redirect('/comments');
+	res.redirect("/comments");
 });
-
-
 
 app.get("/dinner", (req, res) => {
 	res.send("GET/dinner resposne");
@@ -80,6 +77,8 @@ app.post("/dinner", (req, res) => {
 	res.send(`Your ${qty} ${meat}`);
 });
 
+
 app.listen(port, () => {
 	console.log(`Listening on port ${port}`);
 });
+
